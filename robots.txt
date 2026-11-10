@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://unsei-note.pages.dev/sitemap.xml
