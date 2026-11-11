@@ -1,0 +1,1015 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>相性診断 | 運勢ノート</title><meta name="description" content="ふたりの星座の相性診断。今日の順位から読む「今日の波長」と、月猫ルナのひとことも。"><link rel="canonical" href="https://unsei-note.pages.dev/aishou/"><meta property="og:title" content="相性診断 | 運勢ノート"><meta property="og:description" content="ふたりの星座の相性診断。今日の順位から読む「今日の波長」と、月猫ルナのひとことも。"><meta property="og:type" content="website"><style>
+/* ==========================================================================
+   運勢ノート (Unsei Note) — Design System Draft CSS
+   Theme: 「星暦の読書室 (Celestial Almanac & Starlit Study)」
+   Static HTML + CSS Only / Zero External Images
+   ========================================================================== */
+
+:root {
+  /* --- 1. Base Surfaces (Night Sky to Warm Parchment) --- */
+  --bg-sky-deep: #110E24;       /* 深夜の天球（ヘッダー最上部） */
+  --bg-sky-mid: #1E193B;        /* 星夜の藍紫（ヘッダー下部） */
+  --bg-sky-glow: #2D2459;       /* 宵の余韻（ナビゲーション周辺） */
+  --bg-page: #F7F4EC;           /* 生成りノート紙（本文エリア背景） */
+  --bg-card: #FFFFFF;           /* カード本紙 */
+  --bg-card-subtle: #FBF9F4;    /* 補助カード・インセット背景 */
+  --bg-tint-purple: #F3EFFB;    /* 薄藤のハイライト背景 */
+  --bg-tint-gold: #FBF6E8;      /* 琥珀・金箔のハイライト背景 */
+
+  /* --- 2. Typography & Ink Colors --- */
+  --ink-primary: #1F1B30;       /* 濃藍墨（本文・大見出し：黒より柔らかく読みやすい） */
+  --ink-secondary: #4E4766;     /* 紫灰墨（小見出し・補足本文） */
+  --ink-muted: #787091;         /* 薄墨（日付・注釈・メタ情報） */
+  --ink-on-dark: #F8F5EE;       /* 夜空上の文字色 */
+  --ink-on-dark-sub: #CEC6E8;   /* 夜空上のサブ文字色 */
+
+  /* --- 3. Brand & Accent Colors --- */
+  --acc-primary: #6347B5;       /* 星見の紫（主要リンク・見出し装飾・ボタン） */
+  --acc-primary-hover: #4E3596; /* ホバー時深紫 */
+  --acc-gold: #C89B3C;          /* 真鍮ゴールド（1位・星評価・タロット枠） */
+  --acc-gold-light: #E6C97A;    /* 淡金（罫線・装飾ボーダー） */
+  --acc-gold-dark: #9A7220;     /* 濃金（白背景上のゴールド文字用・AAコントラスト確保） */
+  --acc-silver: #7E879C;        /* 2位シルバー */
+  --acc-bronze: #B5734C;        /* 3位ブロンズ */
+
+  /* --- 4. Four Elements (4エレメント属性カラー) --- */
+  --elem-fire-bg: #FDF1EE;      /* 火（牡羊・獅子・射手） */
+  --elem-fire-ink: #B8422B;
+  --elem-fire-border: #F2C6BC;
+
+  --elem-earth-bg: #F3F6EE;     /* 地（牡牛・乙女・山羊） */
+  --elem-earth-ink: #476930;
+  --elem-earth-border: #C7D9B7;
+
+  --elem-air-bg: #EEF6FA;       /* 風（双子・天秤・水瓶） */
+  --elem-air-ink: #29688A;
+  --elem-air-border: #B8DCEB;
+
+  --elem-water-bg: #F1F0FA;     /* 水（蟹・蠍・魚） */
+  --elem-water-ink: #4C4391;
+  --elem-water-border: #C7C3EB;
+
+  /* --- 5. Category Meter Colors (運勢バー用) --- */
+  --cat-love: #D95B7A;          /* 恋愛運：ローズベリー */
+  --cat-work: #3E6B9C;          /* 仕事運：サファイアブルー */
+  --cat-money: #C8922B;         /* 金運：アンバーゴールド */
+  --cat-health: #488A65;        /* 健康運：セージグリーン */
+
+  /* --- 6. Borders, Shadows & Geometry --- */
+  --line-soft: #E6E0D2;         /* ノート罫線（暖色系グレー） */
+  --line-lavender: #E2DCF0;     /* 紫系ボーダー */
+  --shadow-card: 0 4px 20px rgba(25, 18, 56, 0.06), 0 1px 3px rgba(25, 18, 56, 0.04);
+  --shadow-float: 0 8px 28px rgba(25, 18, 56, 0.11);
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+
+  /* --- 7. Font Stacks (OS標準のみで組む書籍調＋モダン体) --- */
+  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "BIZ UDPMincho", "Noto Serif JP", serif;
+  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--ink-primary);
+  background-color: var(--bg-page);
+  /* 上部は星空の天球グラデーション＋CSS微細星屑、本文域は暖かい生成りノート紙 */
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 42px, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+    radial-gradient(1px 1px at 42% 88px, rgba(230, 201, 122, 0.65) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 67% 36px, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
+    radial-gradient(1px 1px at 84% 110px, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 11% 145px, rgba(230, 201, 122, 0.5) 50%, transparent 100%),
+    linear-gradient(180deg, var(--bg-sky-deep) 0%, var(--bg-sky-mid) 210px, var(--bg-sky-glow) 310px, var(--bg-page) 311px);
+  background-repeat: no-repeat;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: var(--acc-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--acc-primary-hover);
+}
+
+/* ==========================================================================
+   Header & Global Navigation (星空の天球ヘッダー)
+   ========================================================================== */
+.shead {
+  color: var(--ink-on-dark);
+  padding: 28px 16px 10px;
+  text-align: center;
+  position: relative;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  display: inline-block;
+  position: relative;
+}
+
+.logo::before,
+.logo::after {
+  content: "✦";
+  color: var(--acc-gold-light);
+  font-size: 14px;
+  vertical-align: middle;
+  margin: 0 10px;
+  opacity: 0.85;
+}
+
+.logolink {
+  color: var(--ink-on-dark);
+  text-decoration: none;
+}
+
+.logolink:hover {
+  color: #FFFFFF;
+}
+
+.tag {
+  color: var(--ink-on-dark-sub);
+  font-size: 13px;
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+
+.gnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 12px 14px 22px;
+}
+
+.gnlink {
+  color: var(--ink-on-dark);
+  text-decoration: none;
+  border: 1px solid rgba(230, 201, 122, 0.32);
+  border-radius: 999px;
+  padding: 5px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(4px);
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.gnlink:hover,
+.gnlink[aria-current="page"] {
+  background: rgba(230, 201, 122, 0.22);
+  border-color: var(--acc-gold-light);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Main Container & Notebook Cards
+   ========================================================================== */
+.wrap {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 6px 14px 48px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-soft);
+  padding: 24px 22px;
+  margin: 18px 0;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ノートの上辺に繊細な金×紫の栞ラインを付与（第1カード） */
+main.wrap > .card:first-of-type {
+  border-top: 4px solid var(--acc-gold);
+}
+
+/* ==========================================================================
+   Typography (書籍・雑誌調のメリハリ)
+   ========================================================================== */
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 4vw, 27px);
+  line-height: 1.45;
+  color: var(--ink-primary);
+  margin: 6px 0 14px;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--ink-primary);
+  border-left: 4px solid var(--acc-primary);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 2px 0 6px 12px;
+  margin: 26px 0 14px;
+  letter-spacing: 0.03em;
+}
+
+.card > h2:first-child {
+  margin-top: 2px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  margin: 18px 0 8px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.date {
+  display: inline-block;
+  color: var(--acc-primary);
+  background: var(--bg-tint-purple);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  margin: 0 0 6px;
+}
+
+.disc {
+  color: var(--ink-muted);
+  font-size: 12px;
+  line-height: 1.65;
+  margin-top: 24px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   Moon Phase Banner & 12-Sign Quick Jump (新規・日次導入コンポーネント)
+   ========================================================================== */
+.moon-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #1E193B 0%, #31275E 100%);
+  color: var(--ink-on-dark);
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  margin: 14px 0;
+  border: 1px solid rgba(230, 201, 122, 0.35);
+}
+
+.moon-icon {
+  font-size: 32px;
+  line-height: 1;
+  color: var(--acc-gold-light);
+  flex-shrink: 0;
+  text-shadow: 0 0 12px rgba(230, 201, 122, 0.5);
+}
+
+.moon-text {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.moon-label {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--acc-gold-light);
+  font-size: 15px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* 12星座クイックジャンプ（自分の星座へ1タップで移動） */
+.zodiac-jump {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin: 14px 0 4px;
+}
+
+.zjump-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--ink-primary);
+  font-size: 12px;
+  font-weight: 600;
+  transition: transform 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.zjump-link:hover {
+  background: var(--bg-tint-purple);
+  border-color: var(--acc-primary);
+  transform: translateY(-1px);
+}
+
+.zjump-sym {
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--acc-primary);
+}
+
+/* ==========================================================================
+   Ranking & Constellation Cards (順位表示・星座カード)
+   ※既存クラス (.rank, .rkno, .rksym, .stars) をそのまま美しく装飾
+   ========================================================================== */
+.rank {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px 0;
+}
+
+/* TOP3カード内で複数 .rank が並ぶ場合の区切り線 */
+.card > .rank + .rank {
+  border-top: 1px dashed var(--line-soft);
+  padding-top: 16px;
+  margin-top: 4px;
+}
+
+/* 順位バッジ */
+.rkno {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--acc-gold-dark);
+  background: var(--bg-tint-gold);
+  border: 1px solid var(--acc-gold-light);
+  border-radius: var(--radius-md);
+  min-width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* 星座シンボルメダリオン */
+.rksym {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #34296B, #1A1438);
+  color: var(--acc-gold-light);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--acc-gold);
+  box-shadow: 0 2px 6px rgba(26, 20, 56, 0.18);
+}
+
+.rank > div:last-child {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 星座個別セクション (.card#taurus 等) の見出し強化 */
+section.card .rank h2 {
+  font-family: var(--font-serif);
+  font-size: 21px !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 0 8px !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+/* 4エレメント別のカードアクセント（section.card#slug に自動適用） */
+section.card#aries, section.card#leo, section.card#sagittarius, .elem-fire {
+  border-top: 3px solid var(--elem-fire-ink);
+}
+section.card#taurus, section.card#virgo, section.card#capricorn, .elem-earth {
+  border-top: 3px solid var(--elem-earth-ink);
+}
+section.card#gemini, section.card#libra, section.card#aquarius, .elem-air {
+  border-top: 3px solid var(--elem-air-ink);
+}
+section.card#cancer, section.card#scorpio, section.card#pisces, .elem-water {
+  border-top: 3px solid var(--elem-water-ink);
+}
+
+/* エレメントバッジ（任意追加クラス） */
+.elem-badge {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.elem-badge.fire  { background: var(--elem-fire-bg);  color: var(--elem-fire-ink);  border: 1px solid var(--elem-fire-border); }
+.elem-badge.earth { background: var(--elem-earth-bg); color: var(--elem-earth-ink); border: 1px solid var(--elem-earth-border); }
+.elem-badge.air   { background: var(--elem-air-bg);   color: var(--elem-air-ink);   border: 1px solid var(--elem-air-border); }
+.elem-badge.water { background: var(--elem-water-bg); color: var(--elem-water-ink); border: 1px solid var(--elem-water-border); }
+
+.stars {
+  color: var(--acc-gold);
+  letter-spacing: 2px;
+  font-size: 16px;
+  font-family: var(--font-sans);
+}
+
+/* ==========================================================================
+   Tables & Category Fortune Bars (順位表 & 項目別運勢テーブル/バー)
+   ========================================================================== */
+.cat {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  margin: 14px 0;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.cat th,
+.cat td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.cat tr:last-child th,
+.cat tr:last-child td {
+  border-bottom: none;
+}
+
+.cat th {
+  background: var(--bg-card-subtle);
+  color: var(--ink-primary);
+  font-weight: 700;
+  width: 78px;
+  white-space: nowrap;
+  border-right: 1px solid var(--line-soft);
+}
+
+/* 星座カード内の4運勢テーブル2列目（★評価列） */
+section.card .cat td:nth-child(2) {
+  color: var(--acc-gold);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  width: 96px;
+  font-size: 13px;
+}
+
+/* 12星座ランキング一覧テーブル（トップページ）の装飾 */
+.card > h2 + .cat tr:nth-child(1) td {
+  background: linear-gradient(90deg, rgba(251, 246, 232, 0.9), rgba(255, 255, 255, 0));
+  font-weight: 700;
+}
+.card > h2 + .cat tr:nth-child(1) td:first-child {
+  color: var(--acc-gold-dark);
+  font-family: var(--font-serif);
+}
+.card > h2 + .cat tr:nth-child(2) td:first-child {
+  color: var(--acc-silver);
+  font-weight: 700;
+  font-family: var(--font-serif);
+}
+.card > h2 + .cat tr:nth-child(3) td:first-child {
+  color: var(--acc-bronze);
+  font-weight: 700;
+  font-family: var(--font-serif);
+}
+.card > h2 + .cat td:first-child {
+  width: 56px;
+  text-align: center;
+  font-weight: 600;
+}
+.card > h2 + .cat td:last-child {
+  text-align: right;
+  width: 110px;
+}
+
+/* 運勢バー（新クラス .meter / .meter-fill：数値スコアの視覚化用） */
+.meter {
+  display: inline-block;
+  width: 84px;
+  height: 8px;
+  background: #ECE7DF;
+  border-radius: 999px;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--acc-primary), var(--acc-gold));
+}
+.meter-fill.love   { background: linear-gradient(90deg, #E58C9E, var(--cat-love)); }
+.meter-fill.work   { background: linear-gradient(90deg, #6A98C9, var(--cat-work)); }
+.meter-fill.money  { background: linear-gradient(90deg, #E6C065, var(--cat-money)); }
+.meter-fill.health { background: linear-gradient(90deg, #7BB896, var(--cat-health)); }
+
+/* ==========================================================================
+   Lucky Indicators & Advice Box (ラッキー表示 & 一言処方箋)
+   ========================================================================== */
+.lucky {
+  background: linear-gradient(90deg, var(--bg-tint-purple) 0%, var(--bg-tint-gold) 100%);
+  border: 1px solid var(--line-lavender);
+  border-left: 4px solid var(--acc-gold);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-primary);
+  margin: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}
+
+.lucky::before {
+  content: "✦ TODAY'S LUCKY";
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--acc-primary);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line-lavender);
+}
+
+/* 構造化ラッキーチップ（ジェネレータ拡張時用） */
+.lucky-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.lucky-chip {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px var(--line-soft);
+  flex-shrink: 0;
+}
+
+/* 今日の処方箋（アドバイス文） */
+.advice-box {
+  background: var(--bg-card-subtle);
+  border-left: 3px solid var(--acc-primary);
+  padding: 10px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 14px;
+  color: var(--ink-secondary);
+  margin: 10px 0;
+}
+
+/* ==========================================================================
+   Tarot Card Component (タロット1枚引き ― 画像なしで成立するアルカナフレーム)
+   ========================================================================== */
+.tarotbox {
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(200, 155, 60, 0.14), transparent 65%),
+    linear-gradient(180deg, #1E1838 0%, #151029 100%);
+  color: var(--ink-on-dark);
+  border: 1px solid var(--acc-gold);
+  box-shadow: 0 8px 26px rgba(17, 14, 36, 0.22), inset 0 0 0 4px #1E1838, inset 0 0 0 5px rgba(230, 201, 122, 0.35);
+  padding: 28px 24px;
+}
+
+.tarotbox h2 {
+  color: var(--acc-gold-light);
+  border: none;
+  padding: 0;
+  margin: 0 0 16px;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+}
+
+.tarotbox h2::before,
+.tarotbox h2::after {
+  content: "―";
+  margin: 0 8px;
+  color: rgba(230, 201, 122, 0.5);
+}
+
+/* アルカナ・カード名（画像なしのCSSタロットカード造形） */
+.tname {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFFFFF;
+  display: inline-block;
+  margin: 8px auto 14px;
+  padding: 22px 32px;
+  min-width: 210px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(99, 71, 181, 0.35), rgba(17, 14, 36, 0.9)),
+    repeating-linear-gradient(45deg, rgba(230, 201, 122, 0.04) 0px, rgba(230, 201, 122, 0.04) 2px, transparent 2px, transparent 8px);
+  border: 2px solid var(--acc-gold-light);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), inset 0 0 0 3px rgba(230, 201, 122, 0.2);
+  position: relative;
+  letter-spacing: 0.06em;
+}
+
+.tname::before {
+  content: "✷ ARCANA OF THE DAY ✷";
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--acc-gold-light);
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.tarotbox p {
+  color: var(--ink-on-dark-sub);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tarotbox a {
+  color: var(--acc-gold-light);
+  font-weight: 700;
+}
+
+.tarotbox a:hover {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Grid Items (星座一覧・タロット一覧・悩み別一覧カード)
+   ========================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.gitem {
+  display: block;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  padding: 14px 14px;
+  text-decoration: none;
+  color: var(--ink-primary);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+
+.gitem:hover {
+  background: #FFFFFF;
+  border-color: var(--acc-primary);
+  box-shadow: var(--shadow-float);
+  transform: translateY(-2px);
+}
+
+.gitem strong {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--ink-primary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.gitem .date {
+  background: transparent;
+  padding: 0;
+  color: var(--ink-muted);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   Buttons & Ad Slots (CTAボタン & 広告枠)
+   ========================================================================== */
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--acc-primary) 0%, #4A3294 100%);
+  color: #FFFFFF !important;
+  padding: 10px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(99, 71, 181, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(99, 71, 181, 0.38);
+}
+
+.btn::after {
+  content: " →";
+  font-weight: 400;
+}
+
+.adslot {
+  border: 1px dashed var(--acc-gold);
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  text-align: center;
+  margin: 22px 0;
+  background: var(--bg-card-subtle);
+  position: relative;
+}
+
+.adpr {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  background: #EAE4D7;
+  padding: 1px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.sfoot {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 18px 14px 44px;
+  color: var(--ink-muted);
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid var(--line-soft);
+}
+
+.flink {
+  color: var(--ink-secondary);
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.flink:hover {
+  color: var(--acc-primary);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Responsive Adjustments (スマートフォン最適化)
+   ========================================================================== */
+@media (max-width: 600px) {
+  .shead {
+    padding: 20px 12px 6px;
+  }
+  .logo {
+    font-size: 24px;
+  }
+  .gnav {
+    gap: 6px;
+    padding: 10px 10px 18px;
+  }
+  .gnlink {
+    padding: 4px 11px;
+    font-size: 12px;
+  }
+  .card {
+    padding: 18px 15px;
+    margin: 14px 0;
+  }
+  .zodiac-jump {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .rank {
+    gap: 10px;
+  }
+  .rkno, .rksym {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+  .rksym {
+    font-size: 20px;
+  }
+  /* スマホでの4運勢テーブルは縦積みにして読みやすさを確保 */
+  section.card .cat tr {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--line-soft);
+    padding: 6px 0;
+  }
+  section.card .cat tr:last-child {
+    border-bottom: none;
+  }
+  section.card .cat th {
+    border: none;
+    background: transparent;
+    padding: 4px 8px 2px 10px;
+    width: auto;
+    color: var(--acc-primary);
+  }
+  section.card .cat td:nth-child(2) {
+    border: none;
+    padding: 4px 8px 2px 0;
+    width: auto;
+  }
+  section.card .cat td:nth-child(3) {
+    border: none;
+    width: 100%;
+    padding: 2px 10px 6px;
+    font-size: 13.5px;
+  }
+  .tname {
+    padding: 18px 20px;
+    font-size: 20px;
+    min-width: 180px;
+  }
+}
+
+.hitokoto{font-family:var(--font-serif);font-size:17px;color:var(--acc-gold-dark);margin:10px 0 2px;letter-spacing:.03em}
+.daynav{display:flex;justify-content:space-between;gap:10px;margin:16px 0}
+.daynav a{background:#fff;border:1px solid var(--line,#e7e2f5);border-radius:10px;padding:8px 14px;text-decoration:none;font-size:14px}
+.tcats{margin:12px auto 4px;max-width:560px;text-align:left;font-size:14px;line-height:1.8}
+.tcats p{margin:4px 0}
+.tcats b{color:var(--acc-gold-light,#E6C97A)}
+.faq dt{font-weight:700;margin-top:12px}
+.faq dd{margin:4px 0 0 0}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;background:#17142A;padding:8px 14px;position:relative;z-index:30}
+.topbar .tb-name{font-family:var(--font-serif);color:#F8F5EE;font-size:16px;letter-spacing:.08em;text-decoration:none}
+details.pmenu{position:relative}
+details.pmenu summary{list-style:none;cursor:pointer;background:#2A2450;color:#F3E9CF;border:1px solid #C89B3C;border-radius:8px;padding:6px 14px;font-size:14px}
+details.pmenu summary::-webkit-details-marker{display:none}
+.pmenu-panel{position:absolute;right:0;top:calc(100% + 6px);width:min(320px,86vw);background:#fff;border:1.5px solid #C89B3C;border-radius:12px;box-shadow:0 14px 34px rgba(23,20,42,.35);padding:8px 14px}
+.pmenu-panel a{display:flex;justify-content:space-between;padding:11px 2px;border-bottom:1px dashed #e7e2f5;color:var(--ink);text-decoration:none;font-size:15px}
+.pmenu-panel a:last-child{border-bottom:none}
+.pmenu-panel .arr{color:#C89B3C;font-weight:700}
+.pmenu-mysign{background:#FBF6E8;border-radius:8px;padding:9px 10px;font-size:14px;margin:6px 0 2px}
+.hero{position:relative;background:#1F1B30 center/cover no-repeat;color:#EDE8F7;text-align:center;padding:30px 18px 26px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,42,.45),rgba(23,20,42,.78))}
+.hero>*{position:relative}
+.hero .avatar{width:76px;height:76px;border-radius:50%;border:2.5px solid #C89B3C;object-fit:cover;background:#2A2450}
+.hero h1{font-family:var(--font-serif);font-size:32px;margin:8px 0 2px;letter-spacing:.12em;color:#F8F5EE;text-shadow:0 2px 14px rgba(0,0,0,.85);border:none;padding:0}
+.hero .catch{font-family:var(--font-serif);color:#F3E9CF;font-size:16.5px;margin:2px 0 0}
+.hero .notice{font-size:14px;color:#F3E9CF;margin-top:10px}
+.lunarow{display:flex;gap:10px;align-items:flex-start}
+.lunarow img,.lunarow .lunaimg{width:56px;height:56px;border-radius:50%;border:2px solid #C89B3C;flex:none;background-color:#2A2450;background-size:cover;background-position:center;display:inline-block}
+.hero .lunaimg{width:76px;height:76px;border-radius:50%;border:2.5px solid #C89B3C;background-size:cover;background-position:center;display:inline-block}
+.lunabubble{background:#F3EFE3;border-radius:12px;padding:10px 12px;font-size:14.5px;position:relative;flex:1}
+.lunabubble:before{content:"";position:absolute;left:-6px;top:18px;border:6px solid transparent;border-right-color:#F3EFE3;border-left:0}
+.delta{font-size:12.5px;font-weight:700;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.delta.up{color:#1E7A34}.delta.down{color:#B8422B}.delta.flat{color:#787091}
+.catpeak{display:inline-block;background:#C89B3C;color:#1F1B30;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;margin-left:6px}
+tr.peakrow th,tr.peakrow td{background:#FBF6E8}
+.luckyrows{font-size:14.5px}
+.luckyrows>div{display:flex;gap:10px;padding:3px 0}
+.luckyrows .lab{color:#787091;font-size:13px;min-width:108px}
+.missions{margin:10px 0;border-top:1px dashed #e7e2f5;padding-top:8px}
+.missions .mtitle{font-weight:700;font-size:14.5px;margin-bottom:4px}
+.missions label{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;padding:4px 0;cursor:pointer}
+.missions input{width:18px;height:18px;margin-top:2px;accent-color:#C89B3C}
+.missions .done{color:#9a94ad;text-decoration:line-through}
+.mpbar{display:inline-block;width:110px;height:8px;background:#EDEAF6;border-radius:99px;overflow:hidden;vertical-align:middle;margin:0 8px}
+.mpbar i{display:block;height:100%;background:#C89B3C}
+.missionrow{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:14.5px;flex-wrap:wrap}
+.shiori-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.shiori-ttl{font-family:var(--font-serif);font-size:17px}
+.shiori-sub{font-size:12.5px;color:#787091}
+.shiori-grid{display:flex;gap:18px;align-items:flex-start;margin-top:8px;flex-wrap:wrap}
+.big-rank{font-family:var(--font-serif);font-size:46px;color:var(--acc-gold-dark);line-height:1}
+.rank-unit{font-size:16px}
+.catpeak-line{font-weight:700;margin:0 0 4px}
+.shiori-note{font-size:12.5px;color:#787091}
+.pickrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.pickrow select{font-size:15px;padding:7px 8px;border-radius:8px;border:1px solid #cfc8e8}
+.adletter{background:#FBF6E8;border:1.5px dashed #C89B3C;border-radius:14px;padding:16px;margin:14px 0}
+.adletter .adpr{font-size:11px;color:#a08c5a;letter-spacing:.2em;margin-bottom:2px}
+.adletter .head{font-family:var(--font-serif);font-size:15px;color:var(--acc-gold-dark);margin:2px 0 6px}
+.adletter p{font-size:14.5px;margin:6px 0}
+.adletter .btn{display:block;text-align:center;margin-top:10px}
+.adletter .adlink a{display:block;text-align:center;margin-top:10px;background:#C89B3C;color:#1F1B30;font-weight:700;border-radius:999px;padding:11px 18px;text-decoration:none}
+.playgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.playgrid{grid-template-columns:1fr}}
+.playcard{text-align:center}
+.playcard img.cover,.playcard div.cover{width:100%;border-radius:10px;aspect-ratio:16/9;background-size:cover;background-position:center}
+.cover{border-radius:10px;aspect-ratio:16/9;background-size:cover;background-position:center}
+.tcardface{background:linear-gradient(165deg,#241E42,#3A2E63);border:2px solid #C89B3C;border-radius:12px;color:#F3E9CF;text-align:center;padding:18px 10px;margin:0 auto;max-width:230px}
+.tcardface .tsym{font-size:40px;color:#E6C97A;line-height:1.1}
+.tcardface .tname2{font-family:var(--font-serif);font-size:17px;margin-top:6px}
+.tcardface .tkw{font-size:12.5px;color:#CFC8E8;margin-top:4px}
+.spreadgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.spreadgrid .spos{text-align:center;font-size:13px;color:#787091;margin-bottom:6px}
+.spreadgrid .tcardface{max-width:none;padding:12px 6px}
+.spreadgrid .tcardface .tsym{font-size:30px}
+.spreadgrid .tcardface .tname2{font-size:14.5px}
+.scap{font-size:13px;text-align:center;margin-top:6px}
+.aform{display:grid;gap:10px;margin:12px 0}
+.aform .row{display:flex;align-items:center;gap:10px}
+.aform label{font-size:14px;min-width:64px}
+.aform select{flex:1;font-size:15px;padding:8px;border-radius:8px;border:1px solid #cfc8e8}
+.bigscore{font-family:var(--font-serif);font-size:44px;color:var(--acc-gold-dark);text-align:center}
+.koyomini{font-size:14.5px}
+.koyomini .ev{display:flex;gap:10px;padding:4px 0;border-bottom:1px dashed #e7e2f5}
+.koyomini .ev:last-of-type{border-bottom:none}
+.koyomini .d{min-width:56px;color:#787091;font-size:13px}
+.kmonth{font-family:var(--font-serif);font-size:17px;margin:16px 0 6px}
+.rankrows{font-size:14.5px}
+.rankrows .rr{display:flex;justify-content:space-between;padding:7px 2px;border-bottom:1px dashed #e7e2f5}
+.rankrows .rr:last-child{border-bottom:none}
+</style><link rel="stylesheet" href="/assets.css"></head><body><div class="topbar"><a class="tb-name" href="/">✦ 運勢ノート</a><details class="pmenu"><summary>☰ メニュー</summary><div class="pmenu-panel"><p class="pmenu-mysign" id="menu-mysign" style="display:none"></p><a href="/"><span>今日の運勢</span><span class="arr">›</span></a><a href="/tarot/spread"><span>タロット3枚引き</span><span class="arr">›</span></a><a href="/aishou/"><span>相性診断</span><span class="arr">›</span></a><a href="/koyomi/"><span>月の暦</span><span class="arr">›</span></a><a href="/unsei/"><span>過去の運勢</span><span class="arr">›</span></a><a href="/weekly/"><span>今週の運勢</span><span class="arr">›</span></a><a href="/seiza/"><span>星座占い</span><span class="arr">›</span></a><a href="/tarot/"><span>タロット解説</span><span class="arr">›</span></a><a href="/nayami/"><span>悩み別ガイド</span><span class="arr">›</span></a><a href="/about"><span>運営者情報</span><span class="arr">›</span></a></div></details></div><main class="wrap"><div class="card"><h1>相性診断 ― ふたりの星座と今日の波長</h1><div class="cover img-aishou" role="img" aria-label="星空の下の二人" style="margin-bottom:10px"></div><p>ふたりの星座の組み合わせに、今日の順位から読む「今日のふたりの波長」を重ねて診断します。結果には月猫ルナのひとことも付きます。</p><div class="aform"><div class="row"><label>あなた</label><select id="ai-a"><option value="aries">♈ 牡羊座</option><option value="taurus">♉ 牡牛座</option><option value="gemini">♊ 双子座</option><option value="cancer">♋ 蟹座</option><option value="leo">♌ 獅子座</option><option value="virgo">♍ 乙女座</option><option value="libra">♎ 天秤座</option><option value="scorpio">♏ 蠍座</option><option value="sagittarius">♐ 射手座</option><option value="capricorn">♑ 山羊座</option><option value="aquarius">♒ 水瓶座</option><option value="pisces">♓ 魚座</option></select></div><div class="row"><label>あの人</label><select id="ai-b"><option value="aries">♈ 牡羊座</option><option value="taurus">♉ 牡牛座</option><option value="gemini">♊ 双子座</option><option value="cancer">♋ 蟹座</option><option value="leo">♌ 獅子座</option><option value="virgo">♍ 乙女座</option><option value="libra">♎ 天秤座</option><option value="scorpio">♏ 蠍座</option><option value="sagittarius">♐ 射手座</option><option value="capricorn">♑ 山羊座</option><option value="aquarius">♒ 水瓶座</option><option value="pisces">♓ 魚座</option></select></div></div><a class="btn" href="#" id="ai-go" style="display:block;text-align:center">相性を占う</a><div id="ai-result" style="display:none"></div><div id="ai-ad" style="display:none"><div class="adletter"><div class="adpr">AD</div><p class="head">🌙 星暦の余白に ― ご案内</p><p>相性は星座だけでは決まりません。「あの人の本音」が気になるときは、恋愛相談の専門家に匿名で相談できます。初回最大30分無料。</p><div class="adlink"><a href="https://px.a8.net/svt/ejp?a8mat=4BGINQ+6XGPKA+2PEO+BXYEA" rel="sponsored nofollow noopener" target="_blank">電話占い【ココナラ】　もう、一人で悩まないで</a><img border="0" width="1" height="1" src="https://www18.a8.net/0.gif?a8mat=4BGINQ+6XGPKA+2PEO+BXYEA" alt=""></div></div></div></div><script>
+var AI_SIGNS = [{"slug": "aries", "name": "牡羊座", "symbol": "♈", "element": "火", "rank": 10}, {"slug": "taurus", "name": "牡牛座", "symbol": "♉", "element": "地", "rank": 1}, {"slug": "gemini", "name": "双子座", "symbol": "♊", "element": "風", "rank": 8}, {"slug": "cancer", "name": "蟹座", "symbol": "♋", "element": "水", "rank": 7}, {"slug": "leo", "name": "獅子座", "symbol": "♌", "element": "火", "rank": 9}, {"slug": "virgo", "name": "乙女座", "symbol": "♍", "element": "地", "rank": 5}, {"slug": "libra", "name": "天秤座", "symbol": "♎", "element": "風", "rank": 6}, {"slug": "scorpio", "name": "蠍座", "symbol": "♏", "element": "水", "rank": 2}, {"slug": "sagittarius", "name": "射手座", "symbol": "♐", "element": "火", "rank": 11}, {"slug": "capricorn", "name": "山羊座", "symbol": "♑", "element": "地", "rank": 12}, {"slug": "aquarius", "name": "水瓶座", "symbol": "♒", "element": "風", "rank": 3}, {"slug": "pisces", "name": "魚座", "symbol": "♓", "element": "水", "rank": 4}];
+var AI_BANDS = {"s": ["この組み合わせ、今日は特に波長が合う。誘うなら今日。", "相性よし。あとは言葉の量だけ、少し足すといい。"], "a": ["悪くない組み合わせ。タイミングを合わせれば進む日。", "波長は近め。短い連絡が効く日だよ。"], "b": ["普通、が今日の読み。普通は悪くない。続けることが相性を作る。", "可もなく不可もなく。共通の話題をひとつ置くといい。"], "c": ["今日は少し距離がある読み。近づくより、見守る日。", "波長がずれ気味。返信を急がない方がうまくいく。"], "d": ["今日は静かな日。相性が悪いんじゃなくて、波が引いてるだけ。また来るよ。", "無理に合わせない日。それぞれの時間を大事にしてみて。"]};
+function aiBySlug(slug){for(var i=0;i<AI_SIGNS.length;i++)if(AI_SIGNS[i].slug===slug)return AI_SIGNS[i];return AI_SIGNS[0];}
+document.getElementById('ai-go').addEventListener('click', function(ev){
+  ev.preventDefault();
+  var a = aiBySlug(document.getElementById('ai-a').value);
+  var b = aiBySlug(document.getElementById('ai-b').value);
+  var HARM = {'火': ['風'], '風': ['火'], '地': ['水'], '水': ['地']};
+  var CLASH = {'火': ['水'], '水': ['火'], '地': ['風'], '風': ['地']};
+  var base;
+  if (a.element === b.element) base = 78;
+  else if ((HARM[a.element] || []).indexOf(b.element) >= 0) base = 72;
+  else if ((CLASH[a.element] || []).indexOf(b.element) >= 0) base = 58;
+  else base = 64;
+  var seedStr = [a.slug, b.slug].sort().join('|');
+  var h = 0; for (var j = 0; j < seedStr.length; j++) h = (h * 31 + seedStr.charCodeAt(j)) >>> 0;
+  var jitter = h % 13;
+  var wave = Math.round(((13 - a.rank) + (13 - b.rank)) / 2 - 6);
+  var score = Math.max(35, Math.min(98, base + jitter + wave));
+  var band = score >= 85 ? 's' : score >= 72 ? 'a' : score >= 60 ? 'b' : score >= 48 ? 'c' : 'd';
+  var bandLabel = {'s': 'とても良い', 'a': '良い', 'b': '穏やか', 'c': 'ゆっくりめ', 'd': '静かな日'}[band];
+  var lines = AI_BANDS[band] || [];
+  var luna = lines.length ? lines[h % lines.length] : '';
+  var waveTxt = wave >= 3 ? '今日はふたりとも順位が上寄りで、波長が合いやすい日です。' : wave <= -3 ? '今日はふたりとも順位が下寄り。近づくより見守るのが合う日です。' : '今日の波長は中くらい。短い連絡や共通の話題が橋になります。';
+  var html = '<div class="card" style="margin-top:14px"><p style="text-align:center;margin:0">' + a.symbol + ' ' + a.name + ' × ' + b.symbol + ' ' + b.name + '</p>'
+    + '<div class="bigscore">' + score + '<span style="font-size:16px">点 ― ' + bandLabel + '</span></div>'
+    + '<p>ふたりの今日の順位：' + a.name + ' ' + a.rank + '位 ／ ' + b.name + ' ' + b.rank + '位。' + waveTxt + '</p>'
+    + (luna ? '<div class="lunarow"><span class="lunaimg"></span><div class="lunabubble">' + luna + '</div></div>' : '')
+    + '<p style="margin-top:10px"><a id="ai-seiza" href="/seiza/">' + a.name + 'の相性ページ</a>も参考にどうぞ。</p></div>';
+  var sz = document.getElementById('ai-seiza'); if (sz) sz.href = '/seiza/' + a.slug;
+  var r = document.getElementById('ai-result');
+  r.innerHTML = html; r.style.display = 'block';
+  document.getElementById('ai-ad').style.display = 'block';
+});
+</script><p class="disc">※この占いは娯楽・参考情報としてお楽しみください。結果を保証するものではありません。大切な決断は、ご自身の判断と専門家への相談を大切にしてください。</p></main><footer class="sfoot"><p><a class="flink" href="/about">運営者情報</a> / <a class="flink" href="/privacy">プライバシーポリシー</a> / <a class="flink" href="/about#ad">広告について</a></p><p>© 運勢ノート</p></footer><script>
+(function(){try{var s=JSON.parse(localStorage.getItem('unsei-shiori')||'null');if(!s)return;var el=document.getElementById('menu-mysign');if(el){el.style.display='block';el.textContent='🔖 あなたの星座は '+s.symbol+' '+s.name+' ― トップで今日のしおりが開きます';}}catch(e){}})();
+</script></body></html>

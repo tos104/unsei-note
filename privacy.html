@@ -893,4 +893,88 @@ section.card .cat td:nth-child(2) {
 .tcats b{color:var(--acc-gold-light,#E6C97A)}
 .faq dt{font-weight:700;margin-top:12px}
 .faq dd{margin:4px 0 0 0}
-</style></head><body><header class="shead"><div class="logo"><a class="logolink" href="/">運勢ノート</a></div><div class="tag">今日の星座占いとタロット ― 毎日更新</div></header><nav class="gnav"><a class="gnlink" href="/">今日の運勢</a><a class="gnlink" href="/unsei/">過去の運勢</a><a class="gnlink" href="/weekly/">今週の運勢</a><a class="gnlink" href="/seiza/">星座占い</a><a class="gnlink" href="/tarot/">タロット解説</a><a class="gnlink" href="/nayami/">悩み別</a></nav><main class="wrap"><div class="card"><h1>プライバシーポリシー</h1><h2>アクセス解析について</h2><p>当サイトでは、サイトの利用状況を把握するためにアクセス解析ツールを使用する場合があります。これらは匿名のトラフィックデータを収集するもので、個人を特定する情報は含まれません。</p><h2>広告について</h2><p>当サイトはアフィリエイトプログラムに参加しています。広告リンクを経由してサービスへ申し込みがあった場合、当サイトに報酬が支払われることがあります。広告主が利用者の情報を取得する場合の取り扱いは、各広告主のプライバシーポリシーをご確認ください。</p><h2>個人情報の取り扱い</h2><p>当サイト自体は、利用者の氏名・メールアドレス等の個人情報を収集するフォームを設置していません。</p><h2>改定</h2><p>本ポリシーは、必要に応じて内容を改定することがあります。</p></div><p class="disc">※この占いは娯楽・参考情報としてお楽しみください。結果を保証するものではありません。大切な決断は、ご自身の判断と専門家への相談を大切にしてください。</p></main><footer class="sfoot"><p><a class="flink" href="/about">運営者情報</a> / <a class="flink" href="/privacy">プライバシーポリシー</a> / <a class="flink" href="/about#ad">広告について</a></p><p>© 運勢ノート</p></footer></body></html>
+
+.topbar{display:flex;justify-content:space-between;align-items:center;background:#17142A;padding:8px 14px;position:relative;z-index:30}
+.topbar .tb-name{font-family:var(--font-serif);color:#F8F5EE;font-size:16px;letter-spacing:.08em;text-decoration:none}
+details.pmenu{position:relative}
+details.pmenu summary{list-style:none;cursor:pointer;background:#2A2450;color:#F3E9CF;border:1px solid #C89B3C;border-radius:8px;padding:6px 14px;font-size:14px}
+details.pmenu summary::-webkit-details-marker{display:none}
+.pmenu-panel{position:absolute;right:0;top:calc(100% + 6px);width:min(320px,86vw);background:#fff;border:1.5px solid #C89B3C;border-radius:12px;box-shadow:0 14px 34px rgba(23,20,42,.35);padding:8px 14px}
+.pmenu-panel a{display:flex;justify-content:space-between;padding:11px 2px;border-bottom:1px dashed #e7e2f5;color:var(--ink);text-decoration:none;font-size:15px}
+.pmenu-panel a:last-child{border-bottom:none}
+.pmenu-panel .arr{color:#C89B3C;font-weight:700}
+.pmenu-mysign{background:#FBF6E8;border-radius:8px;padding:9px 10px;font-size:14px;margin:6px 0 2px}
+.hero{position:relative;background:#1F1B30 center/cover no-repeat;color:#EDE8F7;text-align:center;padding:30px 18px 26px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,20,42,.45),rgba(23,20,42,.78))}
+.hero>*{position:relative}
+.hero .avatar{width:76px;height:76px;border-radius:50%;border:2.5px solid #C89B3C;object-fit:cover;background:#2A2450}
+.hero h1{font-family:var(--font-serif);font-size:32px;margin:8px 0 2px;letter-spacing:.12em;color:#F8F5EE;text-shadow:0 2px 14px rgba(0,0,0,.85);border:none;padding:0}
+.hero .catch{font-family:var(--font-serif);color:#F3E9CF;font-size:16.5px;margin:2px 0 0}
+.hero .notice{font-size:14px;color:#F3E9CF;margin-top:10px}
+.lunarow{display:flex;gap:10px;align-items:flex-start}
+.lunarow img,.lunarow .lunaimg{width:56px;height:56px;border-radius:50%;border:2px solid #C89B3C;flex:none;background-color:#2A2450;background-size:cover;background-position:center;display:inline-block}
+.hero .lunaimg{width:76px;height:76px;border-radius:50%;border:2.5px solid #C89B3C;background-size:cover;background-position:center;display:inline-block}
+.lunabubble{background:#F3EFE3;border-radius:12px;padding:10px 12px;font-size:14.5px;position:relative;flex:1}
+.lunabubble:before{content:"";position:absolute;left:-6px;top:18px;border:6px solid transparent;border-right-color:#F3EFE3;border-left:0}
+.delta{font-size:12.5px;font-weight:700;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.delta.up{color:#1E7A34}.delta.down{color:#B8422B}.delta.flat{color:#787091}
+.catpeak{display:inline-block;background:#C89B3C;color:#1F1B30;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;margin-left:6px}
+tr.peakrow th,tr.peakrow td{background:#FBF6E8}
+.luckyrows{font-size:14.5px}
+.luckyrows>div{display:flex;gap:10px;padding:3px 0}
+.luckyrows .lab{color:#787091;font-size:13px;min-width:108px}
+.missions{margin:10px 0;border-top:1px dashed #e7e2f5;padding-top:8px}
+.missions .mtitle{font-weight:700;font-size:14.5px;margin-bottom:4px}
+.missions label{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;padding:4px 0;cursor:pointer}
+.missions input{width:18px;height:18px;margin-top:2px;accent-color:#C89B3C}
+.missions .done{color:#9a94ad;text-decoration:line-through}
+.mpbar{display:inline-block;width:110px;height:8px;background:#EDEAF6;border-radius:99px;overflow:hidden;vertical-align:middle;margin:0 8px}
+.mpbar i{display:block;height:100%;background:#C89B3C}
+.missionrow{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:14.5px;flex-wrap:wrap}
+.shiori-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.shiori-ttl{font-family:var(--font-serif);font-size:17px}
+.shiori-sub{font-size:12.5px;color:#787091}
+.shiori-grid{display:flex;gap:18px;align-items:flex-start;margin-top:8px;flex-wrap:wrap}
+.big-rank{font-family:var(--font-serif);font-size:46px;color:var(--acc-gold-dark);line-height:1}
+.rank-unit{font-size:16px}
+.catpeak-line{font-weight:700;margin:0 0 4px}
+.shiori-note{font-size:12.5px;color:#787091}
+.pickrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.pickrow select{font-size:15px;padding:7px 8px;border-radius:8px;border:1px solid #cfc8e8}
+.adletter{background:#FBF6E8;border:1.5px dashed #C89B3C;border-radius:14px;padding:16px;margin:14px 0}
+.adletter .adpr{font-size:11px;color:#a08c5a;letter-spacing:.2em;margin-bottom:2px}
+.adletter .head{font-family:var(--font-serif);font-size:15px;color:var(--acc-gold-dark);margin:2px 0 6px}
+.adletter p{font-size:14.5px;margin:6px 0}
+.adletter .btn{display:block;text-align:center;margin-top:10px}
+.adletter .adlink a{display:block;text-align:center;margin-top:10px;background:#C89B3C;color:#1F1B30;font-weight:700;border-radius:999px;padding:11px 18px;text-decoration:none}
+.playgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.playgrid{grid-template-columns:1fr}}
+.playcard{text-align:center}
+.playcard img.cover,.playcard div.cover{width:100%;border-radius:10px;aspect-ratio:16/9;background-size:cover;background-position:center}
+.cover{border-radius:10px;aspect-ratio:16/9;background-size:cover;background-position:center}
+.tcardface{background:linear-gradient(165deg,#241E42,#3A2E63);border:2px solid #C89B3C;border-radius:12px;color:#F3E9CF;text-align:center;padding:18px 10px;margin:0 auto;max-width:230px}
+.tcardface .tsym{font-size:40px;color:#E6C97A;line-height:1.1}
+.tcardface .tname2{font-family:var(--font-serif);font-size:17px;margin-top:6px}
+.tcardface .tkw{font-size:12.5px;color:#CFC8E8;margin-top:4px}
+.spreadgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.spreadgrid .spos{text-align:center;font-size:13px;color:#787091;margin-bottom:6px}
+.spreadgrid .tcardface{max-width:none;padding:12px 6px}
+.spreadgrid .tcardface .tsym{font-size:30px}
+.spreadgrid .tcardface .tname2{font-size:14.5px}
+.scap{font-size:13px;text-align:center;margin-top:6px}
+.aform{display:grid;gap:10px;margin:12px 0}
+.aform .row{display:flex;align-items:center;gap:10px}
+.aform label{font-size:14px;min-width:64px}
+.aform select{flex:1;font-size:15px;padding:8px;border-radius:8px;border:1px solid #cfc8e8}
+.bigscore{font-family:var(--font-serif);font-size:44px;color:var(--acc-gold-dark);text-align:center}
+.koyomini{font-size:14.5px}
+.koyomini .ev{display:flex;gap:10px;padding:4px 0;border-bottom:1px dashed #e7e2f5}
+.koyomini .ev:last-of-type{border-bottom:none}
+.koyomini .d{min-width:56px;color:#787091;font-size:13px}
+.kmonth{font-family:var(--font-serif);font-size:17px;margin:16px 0 6px}
+.rankrows{font-size:14.5px}
+.rankrows .rr{display:flex;justify-content:space-between;padding:7px 2px;border-bottom:1px dashed #e7e2f5}
+.rankrows .rr:last-child{border-bottom:none}
+</style><link rel="stylesheet" href="/assets.css"></head><body><div class="topbar"><a class="tb-name" href="/">✦ 運勢ノート</a><details class="pmenu"><summary>☰ メニュー</summary><div class="pmenu-panel"><p class="pmenu-mysign" id="menu-mysign" style="display:none"></p><a href="/"><span>今日の運勢</span><span class="arr">›</span></a><a href="/tarot/spread"><span>タロット3枚引き</span><span class="arr">›</span></a><a href="/aishou/"><span>相性診断</span><span class="arr">›</span></a><a href="/koyomi/"><span>月の暦</span><span class="arr">›</span></a><a href="/unsei/"><span>過去の運勢</span><span class="arr">›</span></a><a href="/weekly/"><span>今週の運勢</span><span class="arr">›</span></a><a href="/seiza/"><span>星座占い</span><span class="arr">›</span></a><a href="/tarot/"><span>タロット解説</span><span class="arr">›</span></a><a href="/nayami/"><span>悩み別ガイド</span><span class="arr">›</span></a><a href="/about"><span>運営者情報</span><span class="arr">›</span></a></div></details></div><main class="wrap"><div class="card"><h1>プライバシーポリシー</h1><h2>アクセス解析について</h2><p>当サイトでは、サイトの利用状況を把握するためにアクセス解析ツールを使用する場合があります。これらは匿名のトラフィックデータを収集するもので、個人を特定する情報は含まれません。</p><h2>広告について</h2><p>当サイトはアフィリエイトプログラムに参加しています。広告リンクを経由してサービスへ申し込みがあった場合、当サイトに報酬が支払われることがあります。広告主が利用者の情報を取得する場合の取り扱いは、各広告主のプライバシーポリシーをご確認ください。</p><h2>個人情報の取り扱い</h2><p>当サイト自体は、利用者の氏名・メールアドレス等の個人情報を収集するフォームを設置していません。</p><h2>改定</h2><p>本ポリシーは、必要に応じて内容を改定することがあります。</p></div><p class="disc">※この占いは娯楽・参考情報としてお楽しみください。結果を保証するものではありません。大切な決断は、ご自身の判断と専門家への相談を大切にしてください。</p></main><footer class="sfoot"><p><a class="flink" href="/about">運営者情報</a> / <a class="flink" href="/privacy">プライバシーポリシー</a> / <a class="flink" href="/about#ad">広告について</a></p><p>© 運勢ノート</p></footer><script>
+(function(){try{var s=JSON.parse(localStorage.getItem('unsei-shiori')||'null');if(!s)return;var el=document.getElementById('menu-mysign');if(el){el.style.display='block';el.textContent='🔖 あなたの星座は '+s.symbol+' '+s.name+' ― トップで今日のしおりが開きます';}}catch(e){}})();
+</script></body></html>
