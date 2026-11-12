@@ -1005,9 +1005,9 @@ document.getElementById('ai-go').addEventListener('click', function(ev){
     + '<p>ふたりの今日の順位：' + a.name + ' ' + a.rank + '位 ／ ' + b.name + ' ' + b.rank + '位。' + waveTxt + '</p>'
     + (luna ? '<div class="lunarow"><span class="lunaimg"></span><div class="lunabubble">' + luna + '</div></div>' : '')
     + '<p style="margin-top:10px"><a id="ai-seiza" href="/seiza/">' + a.name + 'の相性ページ</a>も参考にどうぞ。</p></div>';
-  var sz = document.getElementById('ai-seiza'); if (sz) sz.href = '/seiza/' + a.slug;
   var r = document.getElementById('ai-result');
   r.innerHTML = html; r.style.display = 'block';
+  var sz = document.getElementById('ai-seiza'); if (sz) sz.href = '/seiza/' + a.slug;
   document.getElementById('ai-ad').style.display = 'block';
 });
 </script><p class="disc">※この占いは娯楽・参考情報としてお楽しみください。結果を保証するものではありません。大切な決断は、ご自身の判断と専門家への相談を大切にしてください。</p></main><footer class="sfoot"><p><a class="flink" href="/about">運営者情報</a> / <a class="flink" href="/privacy">プライバシーポリシー</a> / <a class="flink" href="/about#ad">広告について</a></p><p>© 運勢ノート</p></footer><script>
