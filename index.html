@@ -996,6 +996,7 @@ var UNSEI_TODAY = {"date": "2026-11-13", "signs": [{"slug": "gemini", "name": "�
 (function(){
   var box=document.getElementById('shiori-body'); if(!box) return;
   var signs=UNSEI_TODAY.signs;
+  var mem=null;
   function bySlug(slug){for(var i=0;i<signs.length;i++)if(signs[i].slug===slug)return signs[i];return null;}
   function signFromBirthday(m,d){
     for(var i=0;i<signs.length;i++){var p=signs[i].period.split('〜');var a=p[0].split('/'),b=p[1].split('/');
@@ -1007,6 +1008,7 @@ var UNSEI_TODAY = {"date": "2026-11-13", "signs": [{"slug": "gemini", "name": "�
   function deltaTxt(d){if(d>0)return '<span class="delta up">▲ '+d+'</span>';if(d<0)return '<span class="delta down">▼ '+(-d)+'</span>';return '<span class="delta flat">━ 0</span>';}
   function render(){
     var saved=null; try{saved=JSON.parse(localStorage.getItem('unsei-shiori')||'null');}catch(e){}
+    if(!saved&&mem)saved=mem;
     if(!saved||!bySlug(saved.slug)){renderPick();return;}
     var f=bySlug(saved.slug);
     var ms=f.missions.map(function(m,i){return '<label><input type="checkbox"><span><b>'+['朝','昼','夜'][i]+'</b> ― '+m+'</span></label>';}).join('');
@@ -1031,11 +1033,17 @@ var UNSEI_TODAY = {"date": "2026-11-13", "signs": [{"slug": "gemini", "name": "�
       +'<div class="pickrow"><select id="sh-m">'+mo+'</select><select id="sh-d">'+da+'</select>'
       +'<a class="btn" href="#" id="sh-go">しおりを作る</a></div>'
       +'<p class="shiori-note">未設定のあいだも、12星座ランキングは下で見られます。</p>';
+    var dmax=[31,29,31,30,31,30,31,31,30,31,30,31];
+    var msel=document.getElementById('sh-m'), dsel=document.getElementById('sh-d');
+    function syncDays(){var max=dmax[+msel.value-1];var cur=+dsel.value||1;var o='';for(var dd=1;dd<=max;dd++)o+='<option value="'+dd+'">'+dd+'日</option>';dsel.innerHTML=o;dsel.value=Math.min(cur,max);}
+    if(msel&&dsel)msel.addEventListener('change',syncDays);
     var go=document.getElementById('sh-go');
     go.addEventListener('click',function(ev){ev.preventDefault();
       var m=+document.getElementById('sh-m').value, d2=+document.getElementById('sh-d').value;
+      if(d2>dmax[m-1])d2=dmax[m-1];
       var s=signFromBirthday(m,d2);
-      try{localStorage.setItem('unsei-shiori',JSON.stringify({m:m,d:d2,slug:s.slug,name:s.name,symbol:s.symbol}));}catch(e){}
+      mem={m:m,d:d2,slug:s.slug,name:s.name,symbol:s.symbol};
+      try{localStorage.setItem('unsei-shiori',JSON.stringify(mem));}catch(e){}
       render();});
   }
   render();

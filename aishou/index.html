@@ -999,7 +999,7 @@ document.getElementById('ai-go').addEventListener('click', function(ev){
   var bandLabel = {'s': 'とても良い', 'a': '良い', 'b': '穏やか', 'c': 'ゆっくりめ', 'd': '静かな日'}[band];
   var lines = AI_BANDS[band] || [];
   var luna = lines.length ? lines[h % lines.length] : '';
-  var waveTxt = wave >= 3 ? '今日はふたりとも順位が上寄りで、波長が合いやすい日です。' : wave <= -3 ? '今日はふたりとも順位が下寄り。近づくより見守るのが合う日です。' : '今日の波長は中くらい。短い連絡や共通の話題が橋になります。';
+  var waveTxt = (a.rank <= 6 && b.rank <= 6) ? '今日はふたりとも順位が上寄りで、波長が合いやすい日です。' : (a.rank >= 7 && b.rank >= 7) ? '今日はふたりとも順位が下寄り。近づくより見守るのが合う日です。' : '今日の波長は中くらい。短い連絡や共通の話題が橋になります。';
   var html = '<div class="card" style="margin-top:14px"><p style="text-align:center;margin:0">' + a.symbol + ' ' + a.name + ' × ' + b.symbol + ' ' + b.name + '</p>'
     + '<div class="bigscore">' + score + '<span style="font-size:16px">点 ― ' + bandLabel + '</span></div>'
     + '<p>ふたりの今日の順位：' + a.name + ' ' + a.rank + '位 ／ ' + b.name + ' ' + b.rank + '位。' + waveTxt + '</p>'
