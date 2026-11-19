@@ -983,7 +983,9 @@ tr.peakrow th,tr.peakrow td{background:#FBF6E8}
 .tcardface .tkw{font-size:12.5px;color:#CFC8E8;margin-top:4px}
 .spreadgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
 .spreadgrid .spos{text-align:center;font-size:13px;color:#787091;margin-bottom:6px}
-.spreadgrid .tcardface{max-width:none;padding:12px 6px}
+.spreadgrid .tcardface{max-width:230px;width:100%;padding:12px 6px}
+.spreadgrid>*{min-width:0}
+@media(max-width:560px){.spreadgrid{grid-template-columns:1fr}.spreadgrid .tcardface{margin:0 auto}}
 .spreadgrid .tcardface .tsym{font-size:30px}
 .spreadgrid .tcardface .tname2{font-size:14.5px}
 .scap{font-size:13px;text-align:center;margin-top:6px}
