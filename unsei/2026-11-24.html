@@ -1019,5 +1019,7 @@ function unseiMissionBind(root){
 }
 document.addEventListener('DOMContentLoaded',function(){unseiMissionBind(document);});
 </script><p class="disc">※この占いは娯楽・参考情報としてお楽しみください。結果を保証するものではありません。大切な決断は、ご自身の判断と専門家への相談を大切にしてください。</p></main><footer class="sfoot"><p><a class="flink" href="/about">運営者情報</a> / <a class="flink" href="/privacy">プライバシーポリシー</a> / <a class="flink" href="/about#ad">広告について</a></p><p>© 運勢ノート</p></footer><script>
-(function(){try{var s=JSON.parse(localStorage.getItem('unsei-shiori')||'null');if(!s)return;var el=document.getElementById('menu-mysign');if(el){el.style.display='block';el.textContent='🔖 あなたの星座は '+s.symbol+' '+s.name+' ― トップで今日のしおりが開きます';}}catch(e){}})();
+(function(){function upd(s){var el=document.getElementById('menu-mysign');if(!el)return;if(!s){el.style.display='none';el.textContent='';return;}el.style.display='block';el.textContent='🔖 あなたの星座は '+s.symbol+' '+s.name+' ― トップで今日のしおりが開きます';}
+window.__unseiMenuUpdate=upd;
+try{upd(JSON.parse(localStorage.getItem('unsei-shiori')||'null'));}catch(e){}})();
 </script></body></html>
